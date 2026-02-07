@@ -1,0 +1,197 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>student management</h1>
+    <input type="text" name="" id="inputName" placeholder="enter your name">
+    <input type="number" id="inputAge" placeholder="enter age">
+
+    <input type="grade" id="inputGrade" placeholder="enter grade(a/b/c)">
+    <button onclick="getSubmit()" >Submit</button>
+    <script>
+        let students=[];
+        function getSubmit(){
+            let name=document.getElementById("inputName").value;
+            let age=document.getElementById("inputAge").value;
+            let grade=document.getElementById("inputGrade").value;
+
+
+            let student={
+                id:Date.now(),
+                name,
+                age,
+                grade
+            }
+            students.push(student)
+            console.log(student);
+            display(students);
+            
+        }
+        function display(list){
+            let container=document.getElementById("container");
+
+            list.forEach((std) => {
+                let div=document.createElement("div");
+                let details=" ";
+                object.entries(std).forEach(([key,value])=>{
+
+                    details+=`<h2>${key}:${val}</h2>`
+                })
+console.log(details);
+div.innerHTML=details;
+container.appendChild(div);
+                
+            });
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 180px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .student {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .student p {
+            margin: 4px 0;
+        }
+
+        .delete-btn {
+            background: red;
+            margin-top: 5px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Management</h1>
+
+    <div class="form">
+        <input type="text" id="inputName" placeholder="Enter name">
+        <input type="number" id="inputAge" placeholder="Enter age">
+        <input type="text" id="inputGrade" placeholder="Enter grade (A/B/C)">
+        <br>
+        <button onclick="getSubmit()">Add Student</button>
+    </div>
+
+    <div id="container"></div>
+
+    <script>
+        let students = [];
+
+        function getSubmit() {
+            let name = document.getElementById("inputName").value;
+            let age = document.getElementById("inputAge").value;
+            let grade = document.getElementById("inputGrade").value;
+
+            if (name === "" || age === "" || grade === "") {
+                alert("Please fill all fields");
+                return;
+            }
+
+            let student = {
+                id: Date.now(),
+                name: name,
+                age: age,
+                grade: grade
+            };
+
+            students.push(student);
+            display(students);
+
+            // clear inputs
+            document.getElementById("inputName").value = "";
+            document.getElementById("inputAge").value = "";
+            document.getElementById("inputGrade").value = "";
+        }
+
+        function deleteStudent(id) {
+            students = students.filter(std => std.id !== id);
+            display(students);
+        }
+
+        function display(list) {
+            let container = document.getElementById("container");
+            container.innerHTML = "";
+
+            list.forEach((std) => {
+                let div = document.createElement("div");
+                div.className = "student";
+
+                div.innerHTML = `
+                    <p><strong>ID:</strong> ${std.id}</p>
+                    <p><strong>Name:</strong> ${std.name}</p>
+                    <p><strong>Age:</strong> ${std.age}</p>
+                    <p><strong>Grade:</strong> ${std.grade}</p>
+                    <button class="delete-btn" onclick="deleteStudent(${std.id})">
+                        Delete
+                    </button>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+    </script>
+
+</body>
+</html>
